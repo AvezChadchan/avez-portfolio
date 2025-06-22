@@ -1,4 +1,4 @@
-/* ==== BASE RESET ==== */
+/* ==== RESET ==== */
 * {
   margin: 0;
   padding: 0;
@@ -16,50 +16,18 @@ body {
   transition: background-color 0.3s, color 0.3s;
 }
 
-/* ==== LIGHT THEME ==== */
 body.light {
   background-color: #f9f9f9;
   color: #121212;
 }
 
-body.light header,
-body.light footer {
-  background-color: #f1f1f1;
-}
-
-body.light .nav-links a,
-body.light .logo {
-  color: #121212;
-}
-
-body.light .project-card,
-body.light .skills-grid span {
-  background-color: #ffffff;
-  color: #121212;
-  border: 1px solid #ddd;
-}
-.home-content {
-  display: flex;
-  align-items: center;
-  gap: 2rem;
-  flex-wrap: wrap;
-}
-
-.profile-img {
-  width: 180px;
-  height: 180px;
-  object-fit: cover;
-  border-radius: 50%;
-  border: 4px solid #00bcd4;
-}
-
-/* ==== HEADER/NAV ==== */
+/* ==== HEADER & NAVBAR ==== */
 header {
   background-color: #1f1f1f;
   position: sticky;
   top: 0;
-  z-index: 1000;
   width: 100%;
+  z-index: 999;
 }
 
 .navbar {
@@ -70,36 +38,47 @@ header {
 }
 
 .logo {
+  font-weight: 700;
   font-size: 1.5rem;
-  font-weight: bold;
   color: #ffffff;
 }
 
+/* Hamburger toggle */
+.nav-toggle {
+  display: none;
+}
+
+.hamburger {
+  display: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #ffffff;
+}
+
+/* Nav links desktop */
 .nav-links {
   list-style: none;
   display: flex;
   gap: 1.5rem;
 }
 
-.nav-links a {
+.nav-links li a,
+.nav-links li button {
   text-decoration: none;
   color: #ffffff;
   font-weight: 500;
-  transition: color 0.3s;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 1rem;
 }
 
-.nav-links a:hover {
+.nav-links li a:hover {
   color: #00bcd4;
 }
 
-#themeToggle {
-  background: none;
-  border: none;
-  font-size: 1.2rem;
-  cursor: pointer;
-}
-
-/* ==== SECTIONS ==== */
+/* ==== SECTION LAYOUT ==== */
 .section {
   padding: 4rem 2rem;
 }
@@ -119,46 +98,34 @@ h2 {
 }
 
 p {
-  margin-bottom: 1rem;
   font-size: 1rem;
   line-height: 1.6;
+  margin-bottom: 1rem;
 }
 
-/* ==== PROJECTS ==== */
-.projects-grid {
+/* ==== PROJECTS & SKILLS ==== */
+.projects-grid, .skills-grid {
   display: grid;
-  gap: 1.5rem;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  margin-top: 1rem;
-}
-
-.project-card {
-  background-color: #1e1e1e;
-  padding: 1rem;
-  border-radius: 8px;
-  transition: transform 0.3s;
-  border: 1px solid #333;
-}
-
-.project-card:hover {
-  transform: translateY(-5px);
-}
-
-/* ==== SKILLS ==== */
-.skills-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 1rem;
   margin-top: 1rem;
 }
 
+.project-card, .skills-grid span {
+  background-color: #1e1e1e;
+  padding: 1rem;
+  border-radius: 8px;
+  border: 1px solid #333;
+}
+
+.project-card:hover {
+  transform: translateY(-4px);
+  transition: transform 0.3s;
+}
+
 .skills-grid span {
-  background-color: #222;
-  padding: 0.75rem;
-  border-radius: 6px;
   text-align: center;
   font-weight: 500;
-  border: 1px solid #444;
 }
 
 /* ==== CONTACT ==== */
@@ -167,10 +134,9 @@ p {
   margin-top: 1rem;
   background-color: #00bcd4;
   color: white;
-  padding: 0.7rem 1.2rem;
-  border-radius: 6px;
+  padding: 0.6rem 1rem;
+  border-radius: 5px;
   text-decoration: none;
-  transition: background-color 0.3s;
 }
 
 .btn:hover {
@@ -180,35 +146,53 @@ p {
 /* ==== FOOTER ==== */
 footer {
   background-color: #1f1f1f;
+  color: #aaa;
   text-align: center;
   padding: 1rem;
-  font-size: 0.9rem;
-  color: #aaa;
+}
+
+/* ==== LIGHT THEME OVERRIDES ==== */
+body.light header,
+body.light footer {
+  background-color: #e0e0e0;
+}
+
+body.light .logo,
+body.light .nav-links a,
+body.light .nav-links button {
+  color: #121212;
+}
+
+body.light .project-card,
+body.light .skills-grid span {
+  background-color: #ffffff;
+  color: #121212;
+  border: 1px solid #ccc;
 }
 
 /* ==== MEDIA QUERIES ==== */
 @media (max-width: 768px) {
-  .navbar {
-    flex-direction: column;
-    align-items: flex-start;
+  .hamburger {
+    display: block;
   }
 
   .nav-links {
-    flex-direction: column;
+    position: absolute;
+    top: 60px;
+    left: 0;
     width: 100%;
-    gap: 1rem;
-    margin-top: 1rem;
+    flex-direction: column;
+    background-color: #1f1f1f;
+    display: none;
+    padding: 1rem 0;
   }
 
-  .section {
-    padding: 3rem 1rem;
+  .nav-links li {
+    padding: 0.75rem 1.5rem;
+    text-align: center;
   }
 
-  h1 {
-    font-size: 1.8rem;
-  }
-
-  h2 {
-    font-size: 1.6rem;
+  .nav-toggle:checked + .hamburger + .nav-links {
+    display: flex;
   }
 }
